@@ -146,3 +146,11 @@ var_dump( $reponse );
 echo "</pre>";
 
 ```
+
+## Example Token to save in your database
+
+```php
+
+{"token_type":"bearer","scope":"dashboard_crc:read:admin","access_token":"xxxxx","refresh_token":"xxxxxx","expires":1586716974}
+
+```
