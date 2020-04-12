@@ -61,7 +61,7 @@ And then, you can use the helper
 
 ```php
 
-$doctrine = zoom_instance();
+$zoom = zoom_instance();
 
 
 ```
