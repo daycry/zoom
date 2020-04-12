@@ -128,7 +128,7 @@ class Zoom
 		{
 			$newAccessToken = $this->provider->getAccessToken('refresh_token', [
 				'refresh_token' => $this->accessToken->getRefreshToken()
-			]);
+			])->jsonSerialize();
 		}
 
 		return $newAccessToken;
