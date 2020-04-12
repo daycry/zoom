@@ -1,12 +1,12 @@
-# Doctrine
+# Zoom
 
-Doctrine for Codeigniter 4
+Zoom API for Codeigniter 4
 
 ## Installation via composer
 
 Use the package with composer install
 
-	> composer require daycry/doctrine
+	> composer require daycry/zoom
 
 ## Manual installation
 
@@ -18,7 +18,7 @@ $psr4 = [
     'Config'      => APPPATH . 'Config',
     APP_NAMESPACE => APPPATH,
     'App'         => APPPATH,
-    'Daycry\Doctrine' => APPPATH .'ThirdParty/doctrine/src',
+    'Daycry\Zoom' => APPPATH .'ThirdParty/zoom/src',
 ];
 ```
 
@@ -26,16 +26,16 @@ $psr4 = [
 
 Run command:
 
-	> php spark doctrine:publish
+	> php spark zoom:publish
 
 This command will copy a config file to your app namespace and "cli-config.php" file for doctrine cli.
-Then you can adjust it to your needs. By default file will be present in `app/Config/Doctrine.php`.
+Then you can adjust it to your needs. By default file will be present in `app/Config/Zoom.php`.
 
 
 ## Usage Loading Library
 
 ```php
-$doctrine = new \Daycry\Doctrine\Doctrine();
+$zoom = new \Daycry\Zoom\Zoom();
 $data = $doctrine->em->getRepository( 'App\Models\Entity\Class' )->findOneBy( array( 'id' => 1 ) );
 var_dump( $data );
 
@@ -44,9 +44,7 @@ var_dump( $data );
 ## Usage as a Service
 
 ```php
-$doctrine = \Config\Services::doctrine();
-$data = $doctrine->em->getRepository( 'App\Models\Entity\Class' )->findOneBy( array( 'id' => 1 ) );
-var_dump( $data );
+$zoom = \Config\Services::zoom();
 
 ```
 
@@ -55,7 +53,7 @@ var_dump( $data );
 In your BaseController - $helpers array, add an element with your helper filename.
 
 ```php
-protected $helpers = [ 'doctrine_helper' ];
+protected $helpers = [ 'zoom_helper' ];
 
 ```
 
@@ -63,23 +61,88 @@ And then, you can use the helper
 
 ```php
 
-$doctrine = doctrine_instance();
-$data = $doctrine->em->getRepository( 'App\Models\Entity\Class' )->findOneBy( array( 'id' => 1 ) );
-var_dump( $data );
+$doctrine = zoom_instance();
+
 
 ```
 
-## Cli Commands
+## Authentiication
 
 ```php
+/**
+ *
+ * @return AccessTokenInterface
+ */
 
-//Mapping de database to entities classes
-vendor/bin/doctrine orm:convert-mapping --namespace="App\\Models\\Entity\\" --force --from-database annotation .
+$zoom = new \Daycry\Zoom\Zoom();
+$token = $zoom->authentication();
 
-//Generate getters & setters
-vendor/bin/doctrine orm:generate-entities .
+echo "<pre>";
+echo json_encode( $token );
+echo "</pre>";
 
-//Generate proxy classes
-vendor/bin/doctrine orm:generate-proxies app/Models/Proxies
+```
+
+## Request
+
+```php
+/**
+ * Returns an authenticated PSR-7 request instance.
+ *
+ * @param  string $method
+ * @param  string $url
+ * @return RequestInterface
+ */
+
+$zoom = new \Daycry\Zoom\Zoom();
+$zoom->setAccessToken( $token );
+$reponse = $zoom->request( 'GET', 'users' );
+
+echo "<pre>";
+var_dump( $reponse );
+echo "</pre>";
+
+```
+
+You can pass extra parametres into the request method.
+
+
+```php
+/**
+ * Returns an authenticated PSR-7 request instance.
+ *
+ * @param  string $method
+ * @param  string $url
+ * @param  array $options Any of "headers", "body", and "protocolVersion".
+ * @param  AccessTokenInterface|string $token
+ * @return RequestInterface
+ */
+
+$zoom = new \Daycry\Zoom\Zoom();
+$zoom->setAccessToken( $token );
+$reponse = $zoom->request( 'GET', 'users', [], $token );
+
+echo "<pre>";
+var_dump( $reponse );
+echo "</pre>";
+
+```
+
+## Refresh Token
+
+```php
+/**
+ *
+ * @return AccessTokenInterface
+ */
+
+$zoom = new \Daycry\Zoom\Zoom();
+$zoom->setAccessToken( $token );
+
+$reponse = $zoom->refreshAccessToken();
+
+echo "<pre>";
+var_dump( $reponse );
+echo "</pre>";
 
 ```
