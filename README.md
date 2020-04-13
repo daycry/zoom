@@ -36,8 +36,6 @@ Then you can adjust it to your needs. By default file will be present in `app/Co
 
 ```php
 $zoom = new \Daycry\Zoom\Zoom();
-$data = $doctrine->em->getRepository( 'App\Models\Entity\Class' )->findOneBy( array( 'id' => 1 ) );
-var_dump( $data );
 
 ```
 
