@@ -10,7 +10,7 @@ Use the package with composer install
 
 ## Manual installation
 
-Download this repo and then enable it by editing **app/Config/Autoload.php** and adding the **Daycry\Doctrine**
+Download this repo and then enable it by editing **app/Config/Autoload.php** and adding the **Daycry\Zoom**
 namespace to the **$psr4** array. For example, if you copied it into **app/ThirdParty**:
 
 ```php
