@@ -64,7 +64,7 @@ $zoom = zoom_instance();
 
 ```
 
-## Authentiication
+## Authentication
 
 ```php
 /**
