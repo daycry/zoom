@@ -28,8 +28,7 @@ Run command:
 
 	> php spark zoom:publish
 
-This command will copy a config file to your app namespace and "cli-config.php" file for doctrine cli.
-Then you can adjust it to your needs. By default file will be present in `app/Config/Zoom.php`.
+This command will copy a config file to your app namespace.
 
 
 ## Usage Loading Library
