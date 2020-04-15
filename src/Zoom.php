@@ -85,33 +85,26 @@ class Zoom
 			throw ZoomException::forIncorrectState();
 		
 		} else {
-		
-			try
-			{
-				// Try to get an access token using the authorization code grant.
-				$this->accessToken = $this->provider->getAccessToken('authorization_code', [
-					'code' => $this->request->getGet( 'code' )
-				]);
-		
-				// We have an access token, which we may use in authenticated
-				// requests against the service provider's API.
-				//echo 'Access Token: ' . $this->accessToken->getToken() . "<br>";
-				//echo 'Refresh Token: ' . $this->accessToken->getRefreshToken() . "<br>";
-				//echo 'Expired in: ' . $this->accessToken->getExpires() . "<br>";
-				//echo 'Already expired? ' . ( $this->accessToken->hasExpired() ? 'expired' : 'not expired' ) . "<br>";
-		
-				// Using the access token, we may look up details about the
-				// resource owner.
-				//$resourceOwner = $this->provider->getResourceOwner( $this->accessToken );
-		
-				return $this->accessToken->jsonSerialize();
 
-			} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-		
-				// Failed to get the access token or user details.
-				return $e->getMessage();
-		
-			}
+			// Try to get an access token using the authorization code grant.
+			$this->accessToken = $this->provider->getAccessToken('authorization_code', [
+				'code' => $this->request->getGet( 'code' )
+			]);
+	
+			return $this->accessToken->jsonSerialize();
+
+			// We have an access token, which we may use in authenticated
+			// requests against the service provider's API.
+			//echo 'Access Token: ' . $this->accessToken->getToken() . "<br>";
+			//echo 'Refresh Token: ' . $this->accessToken->getRefreshToken() . "<br>";
+			//echo 'Expired in: ' . $this->accessToken->getExpires() . "<br>";
+			//echo 'Already expired? ' . ( $this->accessToken->hasExpired() ? 'expired' : 'not expired' ) . "<br>";
+	
+			// Using the access token, we may look up details about the
+			// resource owner.
+			//$resourceOwner = $this->provider->getResourceOwner( $this->accessToken );
+	
+			
 		}
 	}
 
@@ -168,6 +161,5 @@ class Zoom
 
 		return $this->provider->getParsedResponse( $response );
 	}
-
 	//--------------------------------------------------------------------
 }
