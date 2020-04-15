@@ -154,4 +154,4 @@ echo "</pre>";
 
 ## Sample Code
 
-[Example]https://github.com/daycry/example-zoom).
+[Example](https://github.com/daycry/example-zoom).
